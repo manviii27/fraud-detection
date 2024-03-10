@@ -26,7 +26,6 @@ app.get("/signup", (req, res) => {
 app.post("/signup", async (req, res) => {
 
     const data = {
-        name: req.body.username,
         email: req.body.email,
         password: req.body.password
     }
@@ -35,7 +34,7 @@ app.post("/signup", async (req, res) => {
     const existingUser = await collection.findOne({ email: data.email });
 
     if (existingUser) {
-        res.send('User already exists. Please choose a different username.');
+        res.send('User already exists. Please sign in to your account.');
     } else {
         // Hash the password using bcrypt
         const saltRounds = 10; // Number of salt rounds for bcrypt
@@ -52,9 +51,9 @@ app.post("/signup", async (req, res) => {
 // Login user 
 app.post("/signin", async (req, res) => {
     try {
-        const check = await collection.findOne({ email: req.body.username });
+        const check = await collection.findOne({ name: req.body.username });
         if (!check) {
-            res.send("User name cannot found")
+            res.send("User name cannot found");
         }
         // Compare the hashed password from the database with the plaintext password
         const isPasswordMatch = await bcrypt.compare(req.body.password, check.password);
@@ -68,6 +67,29 @@ app.post("/signin", async (req, res) => {
     catch {
         res.send("wrong Details");
     }
+});
+
+//Home 
+app.get("/home", (req, res) => {
+    db.collection('profiles').findOne({}, (err, profile) => {
+        if (err) {
+            console.error('Error fetching profile data:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        // Fetch transactions data from MongoDB
+        db.collection('transactions').find({}).toArray((err, transactions) => {
+            if (err) {
+                console.error('Error fetching transactions data:', err);
+                res.status(500).send('Internal Server Error');
+                return;
+            }
+
+            // Render the EJS template with fetched data
+            res.render('index', { profile, transactions });
+        });
+    });
 });
 
 // Define Port for Application

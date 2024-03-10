@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #f0f0f0;
+    /* Add a light background color */
+}
+
+header {
+    background: #009688;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.navbar-top {
+    background: #009688;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title h1 {
+    margin: 0;
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+}
+
+li {
+    margin-right: 20px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    background: #009688;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #00796b;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    border: 2px solid #009688;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.transactions-section,
+.send-money-section {
+    width: 30%;
+    /* Adjust the width based on your design */
+}
